@@ -726,6 +726,24 @@ python module _SHTOOLS
             real*8 :: MakeGridPoint
         end function MakeGridPoint
 
+        subroutine MakeGridArray(d, cilm,lmax,lat,longitude,nmax,norm,csphase,dealloc,cilm_d0,cilm_d1,cilm_d2,d_d0,lat_d0,longitude_d0)
+            fortranname pymakegridarray
+            use shtools, only: MakeGridArray
+            real*8 dimension(d_d0),intent(out) :: d
+            real*8 dimension(cilm_d0,cilm_d1,cilm_d2),intent(in) :: cilm
+            integer, optional,intent(in),depend(cilm_d1) :: lmax = cilm_d1-1
+            real*8 dimension(lat_d0),intent(in) :: lat
+            real*8 dimension(longitude_d0),intent(in) :: longitude
+            integer intent(hide),check(lat_d0==longitude_d0) :: nmax = lat_d0
+            integer, optional,intent(in) :: norm = 1
+            integer, optional,intent(in) :: csphase = 1
+            integer, optional,intent(in) :: dealloc = 0
+            integer, optional,intent(in),check(shape(cilm,0)==cilm_d0),depend(cilm),intent(hide) :: cilm_d0=shape(cilm,0)
+            integer, optional,intent(in),check(shape(cilm,1)==cilm_d1),depend(cilm),intent(hide) :: cilm_d1=shape(cilm,1)
+            integer, optional,intent(in),check(shape(cilm,2)==cilm_d2),depend(cilm),intent(hide) :: cilm_d2=shape(cilm,2)
+            integer, optional,intent(in),depend(lmax),intent(hide) :: d_d0 = nmax
+        end subroutine MakeGridArray
+
         function DownContFilterMA(l,half,r,d)
             fortranname pydowncontfilterma
             use shtools, only: DownContFilterMA

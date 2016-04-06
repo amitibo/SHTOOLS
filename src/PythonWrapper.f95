@@ -844,6 +844,30 @@
                                         csphase=csphase,dealloc=dealloc)
     end function pyMakeGridPoint
 
+    subroutine pyMakeGridArray(d,cilm,lmax,lat,longitude,nmax,norm,csphase, &
+                            dealloc,cilm_d0,cilm_d1,cilm_d2,d_d0,lat_d0, &
+                            longitude_d0) 
+        use shtools, only: MakeGridArray
+        implicit none
+        real*8, dimension(d_d0),intent(out) :: d
+        real*8, dimension(cilm_d0,cilm_d1,cilm_d2),intent(in) :: cilm
+        integer, intent(in) :: lmax
+        real*8, dimension(lat_d0),intent(in) :: lat
+        real*8, dimension(longitude_d0),intent(in) :: longitude
+        integer, intent(in) :: nmax
+        integer, optional,intent(in) :: norm
+        integer, optional,intent(in) :: csphase
+        integer, optional,intent(in) :: dealloc
+        integer, intent(in) :: cilm_d0
+        integer, intent(in) :: cilm_d1
+        integer, intent(in) :: cilm_d2
+        integer, intent(in) :: d_d0
+        integer, intent(in) :: lat_d0
+        integer, intent(in) :: longitude_d0
+        call MakeGridArray(d,cilm,lmax,lat,longitude,nmax,norm=norm, &
+                                        csphase=csphase,dealloc=dealloc)
+    end subroutine pyMakeGridArray
+
     function pyDownContFilterMA(l,half,r,d) 
         use shtools, only: DownContFilterMA
         implicit none

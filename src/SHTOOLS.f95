@@ -341,6 +341,14 @@ module SHTOOLS
             integer, intent(in), optional :: norm, csphase, dealloc
         end function MakeGridPoint
         
+        subroutine MakeGridArray(d, cilm, lmax, lat, longitude, nmax, norm, &
+                                        csphase, dealloc)
+            real*8, intent(in) ::   cilm(:,:,:), lat(:), longitude(:)
+            real*8, intent(out) ::  d(:)
+            integer, intent(in) ::  lmax, nmax
+            integer, intent(in), optional :: norm, csphase, dealloc
+        end subroutine MakeGridArray
+        
         real*8 function DownContFilterMA(l, half, r, d)
             integer, intent(in) ::  l, half
             real*8, intent(in) ::   r, d
